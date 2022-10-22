@@ -14,7 +14,11 @@ const userSocketMap = {};
 app.use(express.static('build'));
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
+});
+
+app.get('/', (req, res) => {
+  return res.status(200).send('Hello from service!');
+});
 
 const getAllConnectedClients = (roomId) => {
   return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
